@@ -33,54 +33,54 @@
     <route id="r_EV" edges="A0B0 B0C0 C0C1 C1C2 C2D2 D2D3"/>
 
     <flow id="f0" type="car" route="r_NS_0" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f1" type="car" route="r_NS_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f2" type="car" route="r_SN_0" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f3" type="car" route="r_SN_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f4" type="car" route="r_NS_1" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f5" type="car" route="r_NS_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f6" type="car" route="r_SN_1" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f7" type="car" route="r_SN_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f8" type="car" route="r_NS_2" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f9" type="car" route="r_NS_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f10" type="car" route="r_SN_2" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f11" type="car" route="r_SN_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f12" type="car" route="r_NS_3" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f13" type="car" route="r_NS_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f14" type="car" route="r_SN_3" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f15" type="car" route="r_SN_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f16" type="car" route="r_NS_4" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f17" type="car" route="r_NS_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f18" type="car" route="r_SN_4" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f19" type="car" route="r_SN_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f20" type="car" route="r_NS_5" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f21" type="car" route="r_NS_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f22" type="car" route="r_SN_5" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f23" type="car" route="r_SN_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f24" type="car" route="r_EW_0" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f25" type="car" route="r_EW_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f26" type="car" route="r_WE_0" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f27" type="car" route="r_WE_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f28" type="car" route="r_EW_1" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f29" type="car" route="r_EW_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f30" type="car" route="r_WE_1" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f31" type="car" route="r_WE_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f32" type="car" route="r_EW_2" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f33" type="car" route="r_EW_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f34" type="car" route="r_WE_2" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f35" type="car" route="r_WE_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f36" type="car" route="r_EW_3" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f37" type="car" route="r_EW_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f38" type="car" route="r_WE_3" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f39" type="car" route="r_WE_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f40" type="car" route="r_EW_4" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f41" type="car" route="r_EW_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f42" type="car" route="r_WE_4" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f43" type="car" route="r_WE_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f44" type="car" route="r_EW_5" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f45" type="car" route="r_EW_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f46" type="car" route="r_WE_5" begin="0"    end="1800" period="6" departLane="best" departSpeed="avg"/>
-    <flow id="f47" type="car" route="r_WE_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
     <flow id="f48" type="truck" route="r_NS_2" begin="0" end="3600" period="30" departLane="0" departSpeed="avg"/>
     <vehicle id="EV_001" type="emergency" route="r_EV" depart="900" departLane="0" departSpeed="max" color="1,0,0"/>
+    <flow id="f1" type="car" route="r_NS_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f3" type="car" route="r_SN_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f5" type="car" route="r_NS_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f7" type="car" route="r_SN_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f9" type="car" route="r_NS_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f11" type="car" route="r_SN_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f13" type="car" route="r_NS_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f15" type="car" route="r_SN_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f17" type="car" route="r_NS_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f19" type="car" route="r_SN_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f21" type="car" route="r_NS_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f23" type="car" route="r_SN_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f25" type="car" route="r_EW_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f27" type="car" route="r_WE_0" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f29" type="car" route="r_EW_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f31" type="car" route="r_WE_1" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f33" type="car" route="r_EW_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f35" type="car" route="r_WE_2" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f37" type="car" route="r_EW_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f39" type="car" route="r_WE_3" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f41" type="car" route="r_EW_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f43" type="car" route="r_WE_4" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f45" type="car" route="r_EW_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
+    <flow id="f47" type="car" route="r_WE_5" begin="1800" end="3600" period="9" departLane="best" departSpeed="avg"/>
 
 </routes>
