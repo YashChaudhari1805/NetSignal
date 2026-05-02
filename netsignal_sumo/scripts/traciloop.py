@@ -33,8 +33,8 @@ import numpy as np
 import networkx as nx
 
 try:
-    import traci
-    import traci.constants as tc
+    import traci # type: ignore[import-untyped]
+    import traci.constants as tc # type: ignore[import-untyped]
 except ImportError:
     sys.exit(
         "ERROR: traci is not installed.\n"
@@ -123,7 +123,7 @@ def build_road_graph() -> nx.DiGraph:
     Edges represent road segments with a uniform weight of 300 m.
     Used for Dijkstra shortest-path computation during EV preemption.
     """
-    graph = nx.DiGraph()
+    graph: nx.DiGraph = nx.DiGraph()
 
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
