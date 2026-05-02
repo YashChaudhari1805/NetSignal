@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-02T14:46:46.778970+05:30 by Eclipse SUMO GUI 1.26.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\AI Traffic Flow\netsignal_sumo\config\../network/grid6x6.net.xml"/>
+        <route-files value="D:\AI Traffic Flow\netsignal_sumo\config\../flows/flow.xml"/>
+    </input>
+
+    <output>
+        <queue-output value="D:\AI Traffic Flow\netsignal_sumo\config\../output/queue.xml"/>
+        <summary-output value="D:\AI Traffic Flow\netsignal_sumo\config\../output/summary.xml"/>
+        <tripinfo-output value="D:\AI Traffic Flow\netsignal_sumo\config\../output/tripinfo.xml"/>
+        <lanedata-output value="D:\AI Traffic Flow\netsignal_sumo\config\../output/lanedata.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <max-num-vehicles value="1500"/>
+        <time-to-teleport value="300"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0.3"/>
+        <device.rerouting.period value="60"/>
+        <device.rerouting.pre-period value="0"/>
+    </routing>
+
+    <report>
+        <verbose value="false"/>
+        <no-warnings value="false"/>
+        <log value="D:\AI Traffic Flow\netsignal_sumo\config\../output/sumo.log"/>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="8813"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="D:\AI Traffic Flow\netsignal_sumo\config\netsignal.view.xml"/>
+        <quit-on-end value="false"/>
+        <delay value="50"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="f0.1" depart="6.00" departLane="A0A1_1" departPos="4.60" departSpeed="13.89" departDelay="0.00" arrival="118.00" arrivalLane="A4A5_1" arrivalPos="279.20" arrivalSpeed="13.33" duration="112.00" routeLength="1474.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.07" rerouteNo="0" devices="tripinfo_f0.1" vType="car" speedFactor="1.07" vaporized=""/>
+    <tripinfo id="f0.0" depart="0.00" departLane="A0A1_0" departPos="4.60" departSpeed="13.17" departDelay="0.00" arrival="119.00" arrivalLane="A4A5_0" arrivalPos="279.20" arrivalSpeed="12.90" duration="119.00" routeLength="1474.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.73" rerouteNo="0" devices="tripinfo_f0.0" vType="car" speedFactor="0.95" vaporized=""/>
+    <tripinfo id="f0.2" depart="12.00" departLane="A0A1_0" departPos="4.60" departSpeed="11.93" departDelay="0.00" arrival="129.00" arrivalLane="A4A5_0" arrivalPos="279.20" arrivalSpeed="13.17" duration="117.00" routeLength="1474.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="10.44" rerouteNo="0" devices="tripinfo_f0.2" vType="car" speedFactor="1.16" vaporized=""/>
+    <tripinfo id="f0.5" depart="30.00" departLane="A0A1_0" departPos="4.60" departSpeed="12.85" departDelay="0.00" arrival="142.00" arrivalLane="A4A5_0" arrivalPos="279.20" arrivalSpeed="13.26" duration="112.00" routeLength="1474.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.41" rerouteNo="0" devices="tripinfo_f0.5" vType="car" speedFactor="1.08" vaporized=""/>
+</tripinfos>

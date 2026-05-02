@@ -1,0 +1,24 @@
+***Starting server on port 8813 ***
+Loading net-file from 'D:\AI Traffic Flow\netsignal_sumo\config\../network/grid6x6.net.xml' ... done (64ms).
+Loading route-files incrementally from 'D:\AI Traffic Flow\netsignal_sumo\config\../flows/flow.xml'
+Loading done.
+Simulation started with time: 0.00.
+Simulation ended at time: 144.00.
+Performance:
+ Duration: 26.47s
+ TraCI-Duration: 22.19s
+ Real time factor: 5.4393
+ UPS: 65.422679
+Vehicles:
+ Inserted: 24
+ Running: 20
+ Waiting: 0
+Statistics (avg of 4):
+ RouteLength: 1474.60
+ Speed: 12.83
+ Duration: 115.00
+ WaitingTime: 0.00
+ TimeLoss: 6.91
+ DepartDelay: 0.00
+DijkstraRouter answered 5 queries and explored 10.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.40ms on average).

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    NetSignal — SUMO Configuration File
+    =====================================
+    GUI mode:      sumo-gui -c config/netsignal.sumocfg
+    Headless mode: sumo -c config/netsignal.sumocfg
+    Via TraCI:     python scripts/traciloop.py
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <!-- ── Input files ── -->
+    <input>
+        <net-file value="../network/grid6x6.net.xml"/>
+        <route-files value="../flows/flow.xml"/>
+    </input>
+
+    <!-- ── Simulation time ── -->
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="1"/>
+    </time>
+
+    <!-- ── Output files ── -->
+    <output>
+        <summary-output value="../output/summary.xml"/>
+        <queue-output value="../output/queue.xml"/>
+        <tripinfo-output value="../output/tripinfo.xml"/>
+        <lanedata-output value="../output/lanedata.xml"/>
+    </output>
+
+    <!-- ── GUI display settings ── -->
+    <!-- NOTE: viewport, window-size, show-tooltips, breakpoints are NOT valid here.
+         They belong in a view settings file passed via: sumo-gui -g netsignal.view.xml
+         See netsignal.view.xml for those settings. -->
+    <gui_only>
+        <quit-on-end value="false"/>
+        <delay value="50"/>
+    </gui_only>
+
+    <!-- ── Processing options ── -->
+    <processing>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <time-to-teleport value="300"/>
+        <max-num-vehicles value="1500"/>
+        <!-- pedestrians.model removed — not valid in this SUMO version -->
+    </processing>
+
+    <!-- ── Routing ── -->
+    <routing>
+        <device.rerouting.probability value="0.3"/>
+        <device.rerouting.period value="60"/>
+        <device.rerouting.pre-period value="0"/>
+    </routing>
+
+    <!-- ── Reporting ── -->
+    <report>
+        <verbose value="false"/>
+        <duration-log.statistics value="true"/>
+        <no-warnings value="false"/>
+        <log value="../output/sumo.log"/>
+    </report>
+
+    <!-- ── Random seed ── -->
+    <random>
+        <seed value="42"/>
+    </random>
+
+</configuration>
