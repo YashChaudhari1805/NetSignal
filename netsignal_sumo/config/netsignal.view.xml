@@ -1,7 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    NetSignal — SUMO-GUI View Settings
+    =====================================
+    Controls the visual appearance of the SUMO-GUI window.
+    Loaded automatically by traciloop.py via: sumo-gui -g config/netsignal.view.xml
+
+    Design language:
+      Background  : white  (#FFFFFF)
+      Roads       : dark slate  (#1E2A38)
+      Lane marks  : medium grey (#8A99A8)
+      Junctions   : light warm grey
+      Signals     : standard red/amber/green — high contrast
+      EV          : vivid red (set in flow.xml)
+      Cars        : cool blue  (set in flow.xml)
+      Trucks      : muted amber (set in flow.xml)
+-->
 <viewsettings>
-    <viewport x="900" y="900" zoom="100"/>
-    <delay value="50"/>
+
+    <!-- ── Viewport: centre on 6×6 grid (900m × 900m) ── -->
+    <viewport x="900" y="900" zoom="90"/>
+    <delay value="30"/>
     <breakpoints value="900"/>
-    <scheme name="real world"/>
+
+    <!-- ══ SCHEME — override built-in "real world" with clean white theme ══ -->
+    <scheme name="NetSignal Clean">
+
+        <!-- Background: white -->
+        <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
+
+        <!-- Roads: dark slate on white looks sharp -->
+        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="0"
+               showLinkDecals="1" showLinkRules="1" showRails="0"
+               showEdgeName="0" showStreetName="0" showEdgeValue="0"
+               hideConnectors="0" widthExaggeration="1.00" minEdgeSize="1.00"
+               edgeValueHideCheck="0" edgeValueHideThreshold="-1.00"
+               laneMinSize="1.00" laneWidthExaggeration="1.00">
+            <colorScheme name="uniform">
+                <entry color="30,42,56"/>
+            </colorScheme>
+        </edges>
+
+        <!-- Vehicles: use colour assigned in flow.xml (blue cars, red EV, amber trucks) -->
+        <vehicles vehicleMode="9" laneChangeMode="0" scaleMode="0"
+                  showBlinker="1" showMinGap="0"
+                  vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.20"
+                  showVehicleName="0" showParkingInfo="0">
+            <colorScheme name="given/assigned vehicle color"/>
+        </vehicles>
+
+        <!-- Persons: not used in this sim -->
+        <persons personMode="0" personQuality="0" minPersonSize="1.00"
+                 personExaggeration="1.00" showPersonName="0" showPersonColor="0">
+            <colorScheme name="given/assigned person color"/>
+        </persons>
+
+        <!-- Containers: not used -->
+        <containers containerMode="0" containerQuality="0" minContainerSize="1.00"
+                    containerExaggeration="1.00" showContainerName="0" showContainerColor="0">
+            <colorScheme name="given/assigned container color"/>
+        </containers>
+
+        <!-- Junctions: neutral light grey so intersections are subtle -->
+        <junctions junctionMode="0" drawShape="1" drawCrossingsAndWalkingareas="0"
+                   drawDiscriminationMarkers="0" showLane2LaneConnections="0"
+                   junctionExaggeration="1.00" minJunctionSize="1.00"
+                   junctionValueHideCheck="0" junctionValueHideThreshold="-1.00"
+                   showJunctionName="0" showInternalJunctionName="0">
+            <colorScheme name="uniform">
+                <entry color="210,215,220"/>
+            </colorScheme>
+        </junctions>
+
+        <!-- POIs / Polygons (e.g. hospital marker if added later) -->
+        <additionals showTLSPhaseIndex="1" showTLSPhaseTime="0"
+                     drawJunctionShape="1"
+                     showDetectorFreq="0" showDetectorName="0"
+                     showReachability="0"
+                     poiExaggeration="1.00" poiMinSize="0.00"
+                     showPOIName="0" showPOIColor="0"
+                     showLaneChangePreference="0">
+        </additionals>
+
+        <!-- Demand (not used in this context) -->
+        <demand showRoute="0" showCurrentRoute="0" showWalkingArea="0" showPedestrianNetwork="0"/>
+
+        <!-- Legend: off — keep UI uncluttered -->
+        <legend showColorLegend="0" showSizeLegend="0" showParameterLegend="0"/>
+
+        <!-- OpenGL: antialiasing on for sharp lines on white background -->
+        <openGL textureQuality="0" antialiase="1" dither="1" fps="0"
+                drawBoundaries="0" forceDrawForPositionSelection="0"
+                forceDrawForRectangleSelection="0" disableDottedContours="0"
+                geometryIndices="0"/>
+
+    </scheme>
+
 </viewsettings>
