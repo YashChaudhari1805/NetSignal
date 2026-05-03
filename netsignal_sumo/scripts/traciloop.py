@@ -449,74 +449,6 @@ class IncidentInjector:
 
         return False
 
-
-# ---------------------------------------------------------------------------
-# Data logger
-# ---------------------------------------------------------------------------
-
-class DataLogger:
-    """
-    Writes per-step simulation data to timestamped CSV files.
-
-    Output files (written to ``output/``):
-        state_log_<ts>.csv    Per-intersection state every timestep.
-        metrics_log_<ts>.csv  Network-wide aggregate metrics every control step.
-        incident_log_<ts>.csv Ground-truth incident labels.
-    """
-
-    _STATE_HEADER   = ["timestep", "intersection", "waiting", "queue",
-                       "avg_speed", "vehicle_count", "current_phase",
-                       "ev_active", "incident_active"]
-    _METRICS_HEADER = ["timestep", "total_waiting", "total_vehicles",
-                       "avg_speed_network", "ev_active", "incident_active"]
-    _INCIDENT_HEADER = ["timestep", "lane", "label"]
-
-    def __init__(self) -> None:
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self._state_path    = OUTPUT_DIR / f"state_log_{ts}.csv"
-        self._metrics_path  = OUTPUT_DIR / f"metrics_log_{ts}.csv"
-        self._incident_path = OUTPUT_DIR / f"incident_log_{ts}.csv"
-
-        self._write_header(self._state_path,    self._STATE_HEADER)
-        self._write_header(self._metrics_path,  self._METRICS_HEADER)
-        self._write_header(self._incident_path, self._INCIDENT_HEADER)
-
-    def log_state(self, timestep: int, state: dict, ev_active: bool, incident_active: bool) -> None:
-        """Append one row per intersection to the state log."""
-        with open(self._state_path, "a", newline="") as fh:
-            writer = csv.writer(fh)
-            for node_id, data in state.items():
-                writer.writerow([
-                    timestep, node_id,
-                    data["waiting"], data["queue"], data["avg_speed"],
-                    data["vehicle_count"], data["current_phase"],
-                    int(ev_active), int(incident_active),
-                ])
-
-    def log_metrics(self, timestep: int, total_waiting: int, state: dict,
-                    ev_active: bool, incident_active: bool) -> None:
-        """Append one network-wide metrics row to the metrics log."""
-        total_vehicles = sum(s["vehicle_count"] for s in state.values())
-        speeds = [s["avg_speed"] for s in state.values() if s["avg_speed"] > 0]
-        avg_speed = round(float(np.mean(speeds)), 3) if speeds else 0.0
-
-        with open(self._metrics_path, "a", newline="") as fh:
-            csv.writer(fh).writerow([
-                timestep, total_waiting, total_vehicles,
-                avg_speed, int(ev_active), int(incident_active),
-            ])
-
-    def log_incident(self, timestep: int, lane: str, label: str) -> None:
-        """Append one ground-truth incident row to the incident log."""
-        with open(self._incident_path, "a", newline="") as fh:
-            csv.writer(fh).writerow([timestep, lane, label])
-
-    @staticmethod
-    def _write_header(path: Path, header: list[str]) -> None:
-        with open(path, "w", newline="") as fh:
-            csv.writer(fh).writerow(header)
-
-
 # ---------------------------------------------------------------------------
 # Console dashboard
 # ---------------------------------------------------------------------------
@@ -598,139 +530,6 @@ def print_dashboard(
 
     print(f"└{'─' * (W - 2)}┘")
 
-
-# ---------------------------------------------------------------------------
-# Summary plot
-# ---------------------------------------------------------------------------
-
-def save_summary_plot(
-    waiting_history: list[float],
-    incident_injected: bool,
-    incident_time: int,
-) -> None:
-    """
-    Save a professional summary chart to ``output/summary_plot.png``.
-
-    The figure contains a main time-series chart with rolling average,
-    EV and incident markers, and three stat cards (avg / peak / final
-    waiting vehicle counts).
-
-    Args:
-        waiting_history:   Per-step network-wide waiting vehicle count.
-        incident_injected: Whether an incident was injected this run.
-        incident_time:     Timestep at which the incident was injected.
-    """
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-        from matplotlib.gridspec import GridSpec
-        from matplotlib import rcParams
-
-        rcParams["font.family"]       = "DejaVu Sans"
-        rcParams["axes.spines.top"]   = False
-        rcParams["axes.spines.right"] = False
-
-        C_BG      = "#FFFFFF"
-        C_PANEL   = "#F7F8FA"
-        C_BORDER  = "#E2E6EA"
-        C_TEXT    = "#1E2A38"
-        C_SUBTEXT = "#6B7A8D"
-        C_LINE    = "#2563EB"
-        C_FILL    = "#DBEAFE"
-        C_ROLL    = "#1D4ED8"
-        C_EV      = "#DC2626"
-        C_INC     = "#D97706"
-        C_GREEN   = "#059669"
-
-        fig = plt.figure(figsize=(16, 7), facecolor=C_BG)
-        gs  = GridSpec(
-            1, 4, figure=fig,
-            width_ratios=[3, 1, 1, 1],
-            wspace=0.06, left=0.06, right=0.97, top=0.88, bottom=0.13,
-        )
-        ax_main = fig.add_subplot(gs[0, 0])
-        ax_avg  = fig.add_subplot(gs[0, 1])
-        ax_peak = fig.add_subplot(gs[0, 2])
-        ax_fin  = fig.add_subplot(gs[0, 3])
-
-        timesteps = list(range(len(waiting_history)))
-        peak_val  = max(waiting_history)
-        avg_val   = float(np.mean(waiting_history))
-        final_val = waiting_history[-1]
-
-        ax_main.set_facecolor(C_BG)
-        ax_main.fill_between(timesteps, waiting_history, color=C_FILL, linewidth=0)
-        ax_main.plot(timesteps, waiting_history,
-                     color=C_LINE, linewidth=1.8, label="Waiting vehicles", zorder=3)
-
-        window = 30
-        if len(waiting_history) > window:
-            rolling = np.convolve(waiting_history, np.ones(window) / window, mode="valid")
-            ax_main.plot(
-                range(window - 1, len(waiting_history)), rolling,
-                color=C_ROLL, linewidth=2.2, label=f"{window}s rolling avg", zorder=4,
-            )
-
-        if 900 < len(waiting_history):
-            ax_main.axvline(x=900, color=C_EV, linestyle="--", linewidth=1.4, alpha=0.85, zorder=5)
-            ax_main.text(912, peak_val * 0.94, "EV dispatched",
-                         color=C_EV, fontsize=8.5, fontweight="semibold", va="top")
-
-        if incident_injected and incident_time < len(waiting_history):
-            ax_main.axvline(x=incident_time, color=C_INC, linestyle="--",
-                            linewidth=1.4, alpha=0.85, zorder=5)
-            ax_main.text(incident_time + 12, peak_val * 0.78, "Incident",
-                         color=C_INC, fontsize=8.5, fontweight="semibold", va="top")
-
-        ax_main.grid(True, color=C_BORDER, linewidth=0.8, zorder=0)
-        ax_main.spines["left"].set_color(C_BORDER)
-        ax_main.spines["bottom"].set_color(C_BORDER)
-        ax_main.tick_params(colors=C_SUBTEXT, labelsize=9)
-        ax_main.set_xlabel("Simulation time (s)", fontsize=10, color=C_SUBTEXT, labelpad=8)
-        ax_main.set_ylabel("Waiting vehicles",    fontsize=10, color=C_SUBTEXT, labelpad=8)
-        ax_main.set_xlim(0, len(waiting_history))
-        ax_main.set_ylim(0, peak_val * 1.18)
-
-        legend = ax_main.legend(fontsize=9, frameon=True, loc="upper left",
-                                framealpha=0.9, edgecolor=C_BORDER)
-        for text in legend.get_texts():
-            text.set_color(C_TEXT)
-
-        def _draw_stat_card(ax, label: str, value: float, accent: str) -> None:
-            ax.set_facecolor(C_PANEL)
-            for spine in ax.spines.values():
-                spine.set_color(C_BORDER)
-                spine.set_linewidth(1.2)
-            ax.set_xticks([])
-            ax.set_yticks([])
-            ax.text(0.5, 0.54, f"{value:.0f}", transform=ax.transAxes,
-                    fontsize=30, fontweight="bold", color=accent, ha="center", va="center")
-            ax.text(0.5, 0.30, "vehicles", transform=ax.transAxes,
-                    fontsize=9, color=C_SUBTEXT, ha="center", va="center")
-            ax.text(0.5, 0.88, label, transform=ax.transAxes,
-                    fontsize=9, fontweight="semibold", color=C_TEXT, ha="center", va="center")
-
-        _draw_stat_card(ax_avg,  "AVG WAITING",   avg_val,   C_LINE)
-        _draw_stat_card(ax_peak, "PEAK WAITING",  peak_val,  C_EV)
-        _draw_stat_card(ax_fin,  "FINAL WAITING", final_val, C_GREEN)
-
-        fig.text(0.06, 0.945, "NetSignal  —  Network Waiting Vehicles",
-                 fontsize=14, fontweight="bold", color=C_TEXT, va="top")
-        fig.text(0.06, 0.915, "Fixed-time baseline  ·  6×6 grid  ·  1-hour simulation",
-                 fontsize=9.5, color=C_SUBTEXT, va="top")
-
-        out_path = OUTPUT_DIR / "summary_plot.png"
-        fig.savefig(out_path, dpi=150, bbox_inches="tight", facecolor=C_BG)
-        plt.close(fig)
-        print(f"  Plot saved: {out_path}")
-
-    except ImportError:
-        print("  (matplotlib not installed — skipping plot)")
-    except Exception as exc:
-        print(f"  (Plot generation failed: {exc})")
-
-
 # ---------------------------------------------------------------------------
 # Main simulation loop
 # ---------------------------------------------------------------------------
@@ -750,7 +549,6 @@ def run_simulation(
         incident_time:    Timestep at which to inject the incident.
         incident_lane:    Lane ID to block during the incident.
     """
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     view_file   = _PROJECT_DIR / "config" / "netsignal.view.xml"
     sumo_binary = "sumo-gui" if gui else "sumo"
@@ -795,7 +593,6 @@ def run_simulation(
     road_graph  = build_road_graph()
     controller  = FixedTimeController()
     preemptor   = EVPreemptor(road_graph)
-    logger      = DataLogger()
     incident    = IncidentInjector(incident_lane, incident_time) if inject_incident else None
 
     for node_id in ALL_INTERSECTIONS:
@@ -824,10 +621,6 @@ def run_simulation(
             ev_active       = bool(emergency_vehicles)
             incident_active = incident.step(step) if incident else False
 
-            logger.log_state(step, state, ev_active, incident_active)
-            if incident_active:
-                logger.log_incident(step, incident_lane, "blockage")
-
             if step % CONTROL_FREQ == 0:
                 preemptor.update(emergency_vehicles)
                 actions = controller.get_actions(state)
@@ -844,8 +637,6 @@ def run_simulation(
                             traci.trafficlight.setPhase(node_id, phase)
                     except traci.exceptions.TraCIException:
                         pass
-
-                logger.log_metrics(step, total_waiting, state, ev_active, incident_active)
 
                 if step % DASHBOARD_FREQ == 0:
                     print_dashboard(step, total_waiting, ev_active, incident_active,
@@ -881,10 +672,6 @@ def run_simulation(
             traci.close()
         except Exception:
             pass
-
-        if waiting_history:
-            save_summary_plot(waiting_history, inject_incident, incident_time)
-
 
 # ---------------------------------------------------------------------------
 # Entry point

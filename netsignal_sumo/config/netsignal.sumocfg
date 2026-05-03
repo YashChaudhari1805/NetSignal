@@ -23,14 +23,6 @@
         <step-length value="1"/>
     </time>
 
-    <!-- ── Output files ── -->
-    <output>
-        <summary-output value="../output/summary.xml"/>
-        <queue-output value="../output/queue.xml"/>
-        <tripinfo-output value="../output/tripinfo.xml"/>
-        <lanedata-output value="../output/lanedata.xml"/>
-    </output>
-
     <!-- ── GUI display settings ── -->
     <!-- NOTE: viewport, window-size, show-tooltips, breakpoints are NOT valid here.
          They belong in a view settings file passed via: sumo-gui -g netsignal.view.xml
@@ -55,14 +47,6 @@
         <device.rerouting.period value="60"/>
         <device.rerouting.pre-period value="0"/>
     </routing>
-
-    <!-- ── Reporting ── -->
-    <report>
-        <verbose value="false"/>
-        <duration-log.statistics value="true"/>
-        <no-warnings value="false"/>
-        <log value="../output/sumo.log"/>
-    </report>
 
     <!-- ── Random seed ── -->
     <random>

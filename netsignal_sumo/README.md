@@ -18,12 +18,6 @@ netsignal_sumo/
 │   └── flow.xml              Vehicle flows and emergency vehicle definition
 ├── network/
 │   └── grid6x6.net.xml       Compiled road network (36 intersections, 300 m spacing)
-├── output/                   Auto-created on first run
-│   ├── state_log_<ts>.csv    Per-intersection state — BiLSTM training input
-│   ├── metrics_log_<ts>.csv  Network-wide metrics per control step
-│   ├── incident_log_<ts>.csv Ground-truth incident labels
-│   ├── summary_plot.png      Waiting-vehicle time series with stat cards
-│   └── tripinfo.xml          Per-vehicle travel time (SUMO output)
 └── scripts/
     ├── generate_network.py   Step 1 — generate grid6x6.net.xml via netgenerate
     ├── fix_flows.py          Step 2 — regenerate flow.xml from real edge IDs
@@ -100,10 +94,10 @@ The simulation prints a live status table every 30 seconds:
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│  NetSignal  ·  t =   900s        [ EV ACTIVE ]  [            ]  │
+│  NetSignal  ·  t =   900s        [ EV ACTIVE ]  [            ]   │
 ├──────────────────────────────────────────────────────────────────┤
 │  waiting:   87 veh    on-road:   412 veh    avg speed:  8.1 m/s  │
-│  EV route  A0 -> B0 -> C0 -> C1 -> C2 -> D2 -> D3               │
+│  EV route  A0 -> B0 -> C0 -> C1 -> C2 -> D2 -> D3                │
 ├──────────────────────────────────────────────────────────────────┤
 │  Node       Waiting  Vehicles   Avg Speed  Phase                 │
 │  ────────   ───────  ────────  ──────────  ─────────             │
